@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServicoTransferenciaArquivo.Library;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -31,13 +32,11 @@ namespace ServicoTransferenciaArquivo.WebApp.Controllers
             {
                 throw new ArgumentException("Arquivo maior que o limite de 100MB.");
             }
-            var serverPath = Server.MapPath("~/App_Data/");
-            var combinedPath = Path.Combine(serverPath, destinationPath);
-            if (!Directory.Exists(combinedPath))
+            if (!Directory.Exists(destinationPath))
             {
-                Directory.CreateDirectory(combinedPath);
+                Directory.CreateDirectory(destinationPath);
             }
-            var filePath = Path.Combine(combinedPath, fileName);
+            var filePath = Path.Combine(destinationPath, fileName);
             var backupFilePath = filePath +".bkp";
             try
             {
@@ -66,22 +65,12 @@ namespace ServicoTransferenciaArquivo.WebApp.Controllers
 
         public string GetMd5Hash(string filePath)
         {
-            var serverPath = Server.MapPath("~/App_Data/");
-            var combinedPath = Path.Combine(serverPath, filePath);
-            using (var md5 = MD5.Create())
-            {
-                using (var stream = System.IO.File.OpenRead(combinedPath))
-                {
-                    return BitConverter.ToString(md5.ComputeHash(stream));
-                }
-            }
+            return MD5Encryption.GetMd5Hash(filePath);
         }
 
-        public FileStreamResult Download(string filePath)
+        public FileStreamResult Download(string filePath, string ticks)
         {
-            var serverPath = Server.MapPath("~/App_Data/");
-            var combinedPath = Path.Combine(serverPath, filePath);
-            var file = System.IO.File.OpenRead(combinedPath);
+            var file = System.IO.File.OpenRead(filePath);
             return File(file, "application/octet-stream");
         }
     }

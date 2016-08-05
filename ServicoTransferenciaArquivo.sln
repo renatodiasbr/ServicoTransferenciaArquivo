@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoTransferenciaArquivo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoTransferenciaArquivo.WebApp.Tests", "WebApp.Tests\ServicoTransferenciaArquivo.WebApp.Tests.csproj", "{4247D0C6-93CC-4ACD-AE9F-60B4EF469965}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoTransferenciaArquivo.Library", "ServicoTransferenciaArquivo.Library\ServicoTransferenciaArquivo.Library.csproj", "{0B624485-1011-4B04-8065-FD980A3AE7D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoTransferenciaArquivo.Library.Tests", "ServicoTransferenciaArquivo.Library.Tests\ServicoTransferenciaArquivo.Library.Tests.csproj", "{2CDC5E01-28B0-4CD6-9296-C9B194D160D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{4247D0C6-93CC-4ACD-AE9F-60B4EF469965}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4247D0C6-93CC-4ACD-AE9F-60B4EF469965}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4247D0C6-93CC-4ACD-AE9F-60B4EF469965}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B624485-1011-4B04-8065-FD980A3AE7D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B624485-1011-4B04-8065-FD980A3AE7D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B624485-1011-4B04-8065-FD980A3AE7D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B624485-1011-4B04-8065-FD980A3AE7D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CDC5E01-28B0-4CD6-9296-C9B194D160D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CDC5E01-28B0-4CD6-9296-C9B194D160D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CDC5E01-28B0-4CD6-9296-C9B194D160D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CDC5E01-28B0-4CD6-9296-C9B194D160D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
