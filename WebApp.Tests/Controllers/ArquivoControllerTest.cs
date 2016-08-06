@@ -8,6 +8,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ServicoTransferenciaArquivo.WebApp.Tests.Controllers
 {
@@ -40,7 +41,19 @@ namespace ServicoTransferenciaArquivo.WebApp.Tests.Controllers
         {
             WebClient client = new WebClient();
             client.QueryString["filePath"] = Path.GetFullPath(@".\..\..\Arquivos\doc.pdf");
-            client.QueryString["ticks"] = RSAEncryption.Encrypt(DateTime.Now.Ticks.ToString(), false);
+            client.QueryString["ticks"] = HttpUtility.UrlEncode(RSAEncryption.Encrypt(DateTime.Now.Ticks.ToString(), false));
+            client.DownloadFile("http://localhost:11532/Arquivo/Download", @".\..\..\Arquivos\ArquivoDownload.pdf");
+            Assert.AreEqual(MD5Encryption.GetMd5Hash(@".\..\..\Arquivos\ArquivoUpload.pdf"), MD5Encryption.GetMd5Hash(@".\..\..\Arquivos\ArquivoDownload.pdf"));
+        }
+
+        [ExpectedException(typeof(Exception), AllowDerivedTypes=true)]
+        [TestMethod]
+        public void DownloadInvalidTest()
+        {
+            WebClient client = new WebClient();
+            client.QueryString["filePath"] = Path.GetFullPath(@".\..\..\Arquivos\doc.pdf");
+            client.QueryString["ticks"] = HttpUtility.UrlEncode(RSAEncryption.Encrypt(DateTime.Now.Ticks.ToString(), false));
+            client.DownloadFile("http://localhost:11532/Arquivo/Download", @".\..\..\Arquivos\ArquivoDownload.pdf");
             client.DownloadFile("http://localhost:11532/Arquivo/Download", @".\..\..\Arquivos\ArquivoDownload.pdf");
             Assert.AreEqual(MD5Encryption.GetMd5Hash(@".\..\..\Arquivos\ArquivoUpload.pdf"), MD5Encryption.GetMd5Hash(@".\..\..\Arquivos\ArquivoDownload.pdf"));
         }

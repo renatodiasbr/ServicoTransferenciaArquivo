@@ -70,8 +70,47 @@ namespace ServicoTransferenciaArquivo.WebApp.Controllers
 
         public FileStreamResult Download(string filePath, string ticks)
         {
+            ValidarTicks(ticks);
             var file = System.IO.File.OpenRead(filePath);
             return File(file, "application/octet-stream");
         }
+
+        private void ValidarTicks(string ticks)
+        {
+            if (string.IsNullOrWhiteSpace(ticks))
+            {
+                throw new UnauthorizedAccessException();
+            }
+            try
+            {
+                var decryptedTicks = RSAEncryption.Decrypt(ticks, false);
+                var binaryTicks = Convert.ToInt64(decryptedTicks);
+                var dateTicks = DateTime.FromBinary(binaryTicks);
+                if ((DateTime.Now - dateTicks).TotalSeconds > 30)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                else
+                {
+                    if (allTicks.Contains(binaryTicks))
+                    {
+                        throw new UnauthorizedAccessException();
+                    }
+                    allTicks.Add(binaryTicks);
+                    var activeTicks = allTicks.Where(e => (DateTime.Now - DateTime.FromBinary(e)).TotalSeconds < 30).ToList();
+                    allTicks = activeTicks;
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw new UnauthorizedAccessException();
+            }
+        }
+
+        private static List<long> allTicks = new List<long>();
     }
 }
