@@ -57,5 +57,16 @@ namespace ServicoTransferenciaArquivo.WebApp.Tests.Controllers
             client.DownloadFile("http://localhost:11532/Arquivo/Download", @".\..\..\Arquivos\ArquivoDownload.pdf");
             Assert.AreEqual(MD5Encryption.GetMd5Hash(@".\..\..\Arquivos\ArquivoUpload.pdf"), MD5Encryption.GetMd5Hash(@".\..\..\Arquivos\ArquivoDownload.pdf"));
         }
+
+        [ExpectedException(typeof(Exception), AllowDerivedTypes = true)]
+        [TestMethod]
+        public void DownloadInvalidTicksTest()
+        {
+            WebClient client = new WebClient();
+            client.QueryString["filePath"] = Path.GetFullPath(@".\..\..\Arquivos\doc.pdf");
+            client.QueryString["ticks"] = "AaSsDdFgZxCc";
+            client.DownloadFile("http://localhost:11532/Arquivo/Download", @".\..\..\Arquivos\ArquivoDownload.pdf");
+            Assert.AreEqual(MD5Encryption.GetMd5Hash(@".\..\..\Arquivos\ArquivoUpload.pdf"), MD5Encryption.GetMd5Hash(@".\..\..\Arquivos\ArquivoDownload.pdf"));
+        }
     }
 }

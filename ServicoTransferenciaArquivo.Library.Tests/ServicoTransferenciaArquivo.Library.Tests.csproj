@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="RSAEncryptionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidaAcessoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ServicoTransferenciaArquivo.Library\ServicoTransferenciaArquivo.Library.csproj">
